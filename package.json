@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "DevCamper Backend API",
   "main": "server.js",
-
   "scripts": {
     "start": "NODE_ENV=production server.js",
     "dev": "nodemon server.js"
@@ -16,6 +15,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.6"
   }
 }

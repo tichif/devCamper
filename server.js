@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 const bootcampsRoute = require('./routes/bootcamps');
 
@@ -7,6 +8,11 @@ const bootcampsRoute = require('./routes/bootcamps');
 dotenv.config();
 
 const app = express();
+
+// Middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Routes
 app.use('/api/v1/bootcamps', bootcampsRoute);

@@ -17,7 +17,7 @@ const BootcampSchema = new mongoose.Schema({
   website: {
     type: String,
     match: [
-      'https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)',
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
       'Please add a valid website url',
     ],
   },
@@ -28,7 +28,7 @@ const BootcampSchema = new mongoose.Schema({
   email: {
     type: String,
     match: [
-      '/^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/',
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       'Please add a valid email address',
     ],
   },
@@ -40,12 +40,12 @@ const BootcampSchema = new mongoose.Schema({
     // GeoJSON Point
     type: {
       type: String,
-      required: true,
+      required: false,
       enum: ['Point'],
     },
     coordinates: {
       type: [Number],
-      required: true,
+      required: false,
       index: '2dsphere',
     },
     formattedAddress: String,
@@ -62,7 +62,7 @@ const BootcampSchema = new mongoose.Schema({
     enum: [
       'Web Development',
       'Mobile Development',
-      'UX / UI',
+      'UI/UX',
       'Data Science',
       'Business',
       'Other',

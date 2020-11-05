@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const colors = require('colors');
 
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 const bootcampsRoute = require('./routes/bootcamps');
 
 // Load env variables
@@ -24,6 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 
 // Routes
 app.use('/api/v1/bootcamps', bootcampsRoute);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

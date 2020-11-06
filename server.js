@@ -6,6 +6,7 @@ const colors = require('colors');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const bootcampsRoute = require('./routes/bootcamps');
+const coursesRoute = require('./routes/courses');
 
 // Load env variables
 dotenv.config();
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Routes
 app.use('/api/v1/bootcamps', bootcampsRoute);
+app.use('/api/v1/courses', coursesRoute);
 
 app.use(errorHandler);
 

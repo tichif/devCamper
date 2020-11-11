@@ -41,6 +41,7 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.addCourse = asyncHandler(async (req, res, next) => {
   req.body.bootcamp = req.params.bootcampId;
+  req.body.user = req.user.id;
 
   const bootcamp = await Bootcamp.findById(req.params.bootcampId);
 
@@ -49,6 +50,15 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
       new ErrorResponse(
         `Bootcamp not found with id of ${req.params.bootcampId}`,
         404
+      )
+    );
+  }
+
+  if (bootcamp.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `User of ID of ${req.user.id} is not authorized to commit this action`,
+        401
       )
     );
   }
@@ -70,6 +80,15 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
     );
   }
 
+  if (course.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `User of ID of ${req.user.id} is not authorized to commit this action`,
+        401
+      )
+    );
+  }
+
   course = await Course.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -87,6 +106,15 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
   if (!course) {
     return next(
       new ErrorResponse(`No course found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  if (course.user.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `User of ID of ${req.user.id} is not authorized to commit this action`,
+        401
+      )
     );
   }
 

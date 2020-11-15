@@ -13,6 +13,7 @@ const bootcampsRoute = require('./routes/bootcamps');
 const coursesRoute = require('./routes/courses');
 const authRoute = require('./routes/auth');
 const usersRoute = require('./routes/users');
+const reviewsRoute = require('./routes/reviews');
 
 // Load env variables
 dotenv.config();
@@ -44,6 +45,7 @@ app.use('/api/v1/bootcamps', bootcampsRoute);
 app.use('/api/v1/courses', coursesRoute);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', usersRoute);
+app.use('/api/v1/reviews', reviewsRoute);
 
 app.use(errorHandler);
 

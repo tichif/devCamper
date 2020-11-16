@@ -4,6 +4,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 const morgan = require('morgan');
 const colors = require('colors');
 
@@ -36,6 +37,9 @@ app.use(fileupload());
 
 // Cookie Parser
 app.use(cookieParser());
+
+// Sanitize data
+app.use(mongoSanitize());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
